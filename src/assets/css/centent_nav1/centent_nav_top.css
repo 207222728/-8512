@@ -1,0 +1,154 @@
+.Centent_nav1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: #fff;
+  z-index: 99;
+}
+
+.div {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  background: #fff;
+  width: 50px;
+  height: 50px;
+  z-index: 99;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 50px;
+  font-size: 30px;
+  box-shadow: #f5f5f5 0px 0px 20px;
+  overflow: hidden;
+}
+
+.Centent_nav1_nav {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: #f5f5f5;
+}
+
+.Centent_nav1_nav > div > div img {
+  width: 100%;
+  height: 100%;
+}
+
+.Centent_nav1_nav > div ul {
+  display: flex;
+}
+
+.details_t {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  font-size: 15px;
+  background: #fff;
+}
+
+.details_a {
+  font-size: 10px;
+  color: #b2b2b2;
+  box-sizing: border-box;
+  padding: 0 20px;
+  background: #fff;
+}
+
+.details_price {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  display: flex;
+  background: #fff;
+  justify-content: space-between;
+}
+
+.details_price > div {
+  display: flex;
+}
+
+.details_price > div .details_price_c {
+  color: #b2b2b2;
+  box-sizing: border-box;
+  padding: 0 10px;
+}
+
+.details_price .details_price_c {
+  color: #b2b2b2;
+  box-sizing: border-box;
+  padding: 0 10px;
+}
+
+.details_details {
+  display: flex;
+  box-sizing: border-box;
+  padding: 10px 0;
+  margin-top: 20px;
+  background: #fff;
+}
+
+.details_details > div {
+  width: 50%;
+  text-align: center;
+}
+
+.details_details1 {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.details_details1 img {
+  width: 100%;
+}
+
+.details_bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background: #fff;
+  display: flex;
+}
+
+.details_bottom .div1 {
+  width: 50%;
+  box-sizing: border-box;
+  display: flex;
+  padding: 10px;
+}
+
+.details_bottom .div1 > p {
+  width: 33.33%;
+  font-size: 30px;
+}
+
+.details_bottom .div1 > div {
+  width: 50%;
+  box-sizing: border-box;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.details_bottom .div1 .red {
+  background: red;
+  color: #fff;
+}
+
+.details_bottom .div2 {
+  width: 50%;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.details_bottom .div2 > div {
+  width: 50%;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.details_bottom .div2 .red {
+  background: red;
+  color: #fff;
+}
