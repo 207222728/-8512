@@ -17,29 +17,12 @@ import Zhuche from '@/components/nav4/zhuche'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
       name: 'HelloWorld',
-      component: Nav1,
-      children: [
-        // {
-        //   path: '/nav1',
-        //   component: Nav1
-        // },
-        // {
-        //   path: '/nav2',
-        //   component: Nav2
-        // },
-        // {
-        //   path: '/nav3',
-        //   component: Nav3
-        // },
-        // {
-        //   path: '/nav4',
-        //   component: Nav4
-        // }
-      ]
+      component: Nav1
     },
     {
       path: '/nav1',

@@ -11,6 +11,14 @@ export default {
   name: 'App',
   components:{
     Hello
+  },
+  watch: {
+    $rouer() {
+      let list = stor.get("token");
+      if (list) {
+        this.$store.state.token = list;
+      }
+    }
   }
 }
 </script>

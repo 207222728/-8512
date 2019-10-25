@@ -28,6 +28,7 @@ export default {
       const arr = ["NewsPage", "/jokePage", "/jokePage", "/myPage"];
       const compare = arr.indexOf(to.path) > arr.indexOf(from.path);
       this.transitionName = compare ? "transitionLeft" : "transitionRight";
+
     }
   }
 };

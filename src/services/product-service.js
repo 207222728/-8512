@@ -41,11 +41,40 @@ class Product {
       }
     })
   }
+  //获取验证码
   zhuche(data) {
-    console.log(data)
     return _http.request({
       type: "post",
-      url: `verification/sms/get?mobile=${data.mobile}&key=${data.kay}&picCode=${data.picCode}`
+      url: 'verification/sms/get',
+      data: {
+        mobile: data.mobile,
+        key: data.key,
+        picCode: data.picCode
+      }
+    })
+  }
+  //确认注册
+  zhuc1(data) {
+    return _http.request({
+      type: "post",
+      url: 'verification/sms/check',
+      data: {
+        mobile: data.mobile,
+        code: data.code
+      }
+    })
+  }
+  //手机注册用户注册
+  shouji(data) {
+    return _http.request({
+      type: "post",
+      url: 'user/m/register',
+      data: {
+        mobile: data.mobile,
+        pwd: data.password,
+        code: data.code,
+        nick: data.name
+      }
     })
   }
 }

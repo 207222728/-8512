@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import stor from "../../model/storage.js"
 import Product from '../../services/product-service.js'
 const _http=new Product()
 import axios from "axios";
@@ -42,18 +43,33 @@ export default {
   },
   methods: {
     fo() {
+      
       let n = this.$refs.zhanghao.value;
       let d = this.$refs.mima.value;
-      let obj={"mobile":"13500000000","pwd":123}
+      let obj={mobile:n,pwd:d}
       _http.zhuc(obj).then(d=>{
         console.log(d)
-        
+        if (d.data.code == 0) {
+         stor.set('token',JSON.stringify(d.data.data.token));
+          //  this.$router.push({ path: "/nav4" }); 
+          location.href = "/nav4"
+        }
       })
     }
   },
   components: {},
   computed: {},
-  created() {}
+  created() {
+   
+  },
+  watch: {
+    $rouer() {
+      let list = stor.get("token");
+      if (list) {
+        this.$store.state.token = list;
+      }
+    }
+  }
 };
 </script>
 <style  scoped>

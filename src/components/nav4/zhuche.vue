@@ -38,7 +38,7 @@
         />
       </div>
       <div class="yanz">
-        <input type="text" v-model="Personal.tpv" />
+        <input type="text" v-model="Personal.code" />
         <span @click="huoqu">获取验证码</span>
       </div>
       <p class="djdz" @click="zhuc">立即注册</p>
@@ -68,7 +68,7 @@ export default {
         //验证码
         Verification: "",
         //手机验证码
-        tpv: "",
+        code: "",
         num: ""
       }
     };
@@ -76,7 +76,23 @@ export default {
   methods: {
     //点击注册
     zhuc() {
-      this.$store.commit("zhuc", this.Personal);
+      let obj = {
+        mobile: this.Personal.Telephone,
+        password: this.Personal.password,
+        code: this.Personal.code,
+        name: this.Personal.name
+      };
+      _http.zhuc1(obj).then(d => {
+        console.log(d);
+        if (d.data.code == 0) {
+          _http.shouji(obj).then(res => {
+            console.log(res);
+            if (res.data.code == 0 || 10000) {
+               this.$router.push({ path: "/zhuc" });
+            }
+          });
+        }
+      });
     },
     //密码
     qie() {
@@ -105,9 +121,9 @@ export default {
           key: this.Personal.num,
           picCode: this.Personal.Verification
         };
-        console.log(obj)
+        // console.log(obj)
         _http.zhuche(obj).then(d => {
-          console.log(d);
+          // console.log(d);
         });
       } else {
         alert("手机号错误");
