@@ -21,11 +21,24 @@
         </div>
         <div class="details_price_c">库存{{list.basicInfo.kanjiaPrice}}</div>
       </div>
+      <!-- 介绍与评价 -->
       <div class="details_details">
-        <div>商品介绍</div>
-        <div>商品评价</div>
+        <div @click="done=false">商品介绍</div>
+        <div @click="done=true">商品评价</div>
       </div>
-      <div class="details_details1" v-html="list.content"></div>
+      <!-- 商品介绍 -->
+      <div v-show="!done"  class="details_details1" v-html="list.content"></div>
+      <!-- 商品评价 -->
+      <div v-show="done" class="details_details1">
+        <li class="ping" v-for="(v,i) in list1">
+         <img  :src="v.goods.pic"  /> 
+        <div> 
+          <p>匿名用户 <span>{{v.goods.goodReputationStr}}</span></p>
+          <p>{{v.goods.goodReputationRemark}}</p>
+          <p>{{v.goods.dateReputation}}  选择规格：{{v.goods.property}}</p>
+        </div>
+        </li>
+      </div>
     </div>
     <div class="details_bottom bottom_A" style="text-align:center">
       <span>立即发起砍价，最低可砍到 1 元</span>
@@ -40,7 +53,9 @@ import axios from "axios";
 export default {
   data() {
     return {
-      list: []
+      list: [],
+       done:false,
+      list1:[]
     };
   },
   methods: {},
@@ -49,23 +64,29 @@ export default {
   created() {
     let n = this.$route.query.id;
     let a = this.$route.query.userid;
-    console.log(n);
     axios
       .get("https://api.it120.cc/small4/shop/goods/detail?id=" + n)
       .then(d => {
         this.list = d.data.data;
       });
+        _http.pingjia(n).then(d=>{
+        console.log(d.data.data)
+        this.list1=d.data.data
+      })
   },
   watch: {
     $route() {
       let n = this.$route.query.id;
       let a = this.$route.query.userid;
-      console.log(n);
       axios
         .get("https://api.it120.cc/small4/shop/goods/detail?id=" + n)
         .then(d => {
           this.list = d.data.data;
         });
+          _http.pingjia(n).then(d=>{
+        console.log(d.data.data)
+        this.list1=d.data.data
+      })
     }
   }
 };
@@ -95,7 +116,34 @@ export default {
 }
 .details_details1 img {
   width: 100% !important;
-  height: 100% !important;
+  height: 100px !important;
   z-index: 99;
+}
+.ping{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  display: flex;
+}
+.ping img{
+  width: 100px !important;
+  height: 100px;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 50%;
+  
+}
+.ping div span{
+  padding: 5px;
+  background: red;
+  color: #fff;
+}
+.ping div p{
+  box-sizing: border-box;
+  padding: 5px 10px;
+  
+}
+.details_details1{
+  margin-bottom: 50px;
 }
 </style>

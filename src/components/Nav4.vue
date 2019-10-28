@@ -10,7 +10,7 @@
           <router-link to="/zhuc" v-show="this.$store.state.token.length == 0">点击登录</router-link>
         </p>
         <p v-show="this.$store.state.token.length >0">123    
-         <span @click="tui">退出登录
+         <span @click="tui">退出
            </span></p>
         <p class="p">积分：0</p>
       </div>
@@ -100,14 +100,14 @@ export default {
     if (list) {
       this.$store.state.token = list;
     }
-  console.log( this.$store.state.token.length);
+  // console.log( this.$store.state.token.length);
   },
   mounted() {
     let list = stor.get("token");
     if (list) {
       this.$store.state.token = list;
     }
-     console.log( this.$store.state.token.length);
+    //  console.log( this.$store.state.token.length);
   },
   watch: {
     $rouer() {

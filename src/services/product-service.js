@@ -77,6 +77,27 @@ class Product {
       }
     })
   }
+  //商品评价
+  pingjia(data) {
+    return _http.request({
+      type: "post",
+      url: "shop/goods/reputation",
+      data: {
+        goodsId: data
+      }
+    })
+  }
+  //选择规格
+  guige(data) {
+    return _http.request({
+      type: "post",
+      url: "shop/goods/price",
+      data: {
+        goodsId: data.n,
+        propertyChildIds: data.d
+      }
+    })
+  }
 }
 
 export default Product

@@ -22,15 +22,24 @@ export default new Router({
     {
       path: '/',
       name: 'HelloWorld',
-      component: Nav1
+      component: Nav1,
+      meta: {
+        title: '首页'
+      }
     },
     {
       path: '/nav1',
-      component: Nav1
+      component: Nav1,
+      meta: {
+        title: '首页'
+      }
     },
     {
       path: '/nav2',
-      component: Nav2
+      component: Nav2,
+      meta: {
+        title: '分类'
+      }
     },
     {
       path: '/nav3',

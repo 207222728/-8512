@@ -49,8 +49,10 @@ const store = new Vuex.Store({
     // 专栏数据
     list4: [],
     done: true,
-    //登录的token值
-    token:[]
+    // 登录的token值
+    token: [],
+    // 购物车的物品
+    gouwu: []
   },
   // mutations
   mutations: {

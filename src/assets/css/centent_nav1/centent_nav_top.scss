@@ -31,9 +31,10 @@
             img{
                 width: 100%;
                 height: 100%;
+                vertical-align: top;
             }
         }
-        ul{
+        .el-carousel__indicators{
            display: flex;
            li{
             
@@ -134,6 +135,72 @@
         .red{
             background: red;
             color: #fff;
+        }
+    }
+}
+// 选择规格
+.guige{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    border: 1px solid;
+    box-sizing: border-box;
+    li{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+       
+        span{ 
+            display: block;
+            width: 22%;
+            box-sizing: border-box;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid;
+            font-size: 10px;
+            margin: 5px;
+        }
+    }
+    >p{
+        box-sizing: border-box;
+        padding: 20px;
+        margin-bottom: 20px;
+        i{
+            float: right;
+        }
+    }
+    .red{
+       width: 100%;
+       float: unset;
+       background: red;
+       line-height: 50px;
+       text-align: center;
+       color: #fff;
+    }
+    .num1{
+        width: 100%;
+        display: flex;
+        box-sizing: border-box;
+        padding: 10px;
+        justify-content: space-between;
+        // margin-top: 70px;
+        >div{
+            width: 30%;
+            // float: right;
+            display: flex;
+            box-sizing: border-box;
+            padding:  0 10px;
+            text-align: center;
+            // line-height: 10px;
+            >p{
+                padding: 0 10px;
+                box-sizing: border-box;
+                
+            }
+            i{
+                font-size: 20px;
+            }
         }
     }
 }

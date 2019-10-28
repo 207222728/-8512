@@ -3,9 +3,11 @@
 <div>
    <div class="centent"  v-show="done">
     <ul class="centent_left">
+      <!-- 自己写数组 -->
       <li style="font-size:12px" ref="i" v-for="(v,i) in list" @click="add(v,i)" :key="i">{{v.name}}</li>
     </ul>
     <ul class="centent_rigth">
+      <!-- 轮播图 -->
       <li class="li1">
         <el-carousel :interval="5000">
           <el-carousel-item v-for="(item,index) in img" :key="index">
@@ -13,6 +15,7 @@
           </el-carousel-item>
         </el-carousel>
       </li>
+      <!-- 数据 -->
       <li v-for="(item,i) in this.$store.state.list1" v-show="item.isUse" :key="i">
         <router-link :to="'/user/'+item.id">
           <img :src="item.icon" />

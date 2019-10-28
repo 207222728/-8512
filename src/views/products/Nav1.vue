@@ -137,7 +137,7 @@ export default {
       this.list = d.data.data;
     });
     axios.get("https://api.it120.cc/small4/shop/goods/kanjia/list").then(d => {
-      console.log(d.data.data.goodsMap)
+      // console.log(d.data.data.goodsMap)
       let a = d.data.data.goodsMap;
       for (let i in a) {
         this.list1.push(a[i]);

@@ -1,10 +1,10 @@
 <template>
   <div class="hello">
-    <transition :name="transitionName">
-      <keep-alive>
+    <!-- <transition :name="transitionName">
+      <keep-alive> -->
         <router-view class="transitionBody"></router-view>
-      </keep-alive>
-    </transition>
+      <!-- </keep-alive>
+    </transition> -->
   </div>
 </template>
 <script>

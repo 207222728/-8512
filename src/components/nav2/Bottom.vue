@@ -14,10 +14,10 @@
           <p>分类</p>
         </router-link>
       </li>
-      <li>
+      <li style="position:relative">
         <router-link to="/nav3">
           <i class="el-icon-shopping-cart-2"></i>
-          <p>购物车</p>
+          <p>购物车 <span class="num" v-show="this.$store.state.gouwu.length"> {{this.$store.state.gouwu.length}}</span></p>
         </router-link>
       </li>
       <li>
@@ -46,7 +46,9 @@ export default {
   //监控data中的数据变化
   watch: {},
   //方法集合
-  methods: {},
+  methods: {
+   
+  },
   activated() {} //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
@@ -57,5 +59,15 @@ export default {
 }
 i{
   font-size: 20px;
+}
+.num{
+  position: absolute;
+  top: 0px;
+  right: 20%;
+  width: 15px;
+  height: 20px;
+  border-radius: 50%;
+  background: red;
+  color: #fff;
 }
 </style>
