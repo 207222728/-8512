@@ -50,7 +50,7 @@ export default {
       _http.zhuc(obj).then(d=>{
         console.log(d)
         if (d.data.code == 0) {
-         stor.set('token',JSON.stringify(d.data.data.token));
+         stor.set('token',JSON.stringify(d.data.data));
           //  this.$router.push({ path: "/nav4" }); 
           location.href = "/nav4"
         }

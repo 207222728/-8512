@@ -118,21 +118,35 @@ export default {
   methods: {
     add() {
       this.done1 = false;
+      console.log()
       this.$store.state.gouwu.push(this.list);
+       this.$store.state.gouwu.forEach((d,i)=>{
+         if (this.list.properties[0].id==d.properties[0].id) {
+           console.log(d)
+           this.list.basicInfo.commission++
+          //  this.$store.state.gouwu.splice(i,1)
+         }else{
+           this.$store.state.gouwu.splice(i,1)
+           this.list.basicInfo.commission++
+          //  this.$store.state.gouwu.push(this.list);
+         }
+       })
 
     },
     //选中
     xuanzhong(v, i, index) {
       this.list.properties[index].childsCurGoods.forEach(d => {
         if (d.propertyId == v.propertyId) {
-          if (d.id == v.id) {
+          if (v.id==d.id) {
             v.remark = true;
-            // console.log(d)
+            console.log(v)
           }
         } else {
-          // console.log(v);
+           v.remark = false;
+          console.log(v);
         }
       });
+      console.log(this.list.properties[index].childsCurGoods)
     },
     // 数量+
     jia(v) {

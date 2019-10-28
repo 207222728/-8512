@@ -123,7 +123,7 @@ export default {
         };
         // console.log(obj)
         _http.zhuche(obj).then(d => {
-          // console.log(d);
+          console.log(d);
         });
       } else {
         alert("手机号错误");

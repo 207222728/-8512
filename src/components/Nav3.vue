@@ -19,7 +19,7 @@
           <div style="width:50%;font-size:10px">
             <p v-html="item.basicInfo.name"></p>
             <span v-for="(v,i2) in item.properties" :key="i2">
-              <span
+              <span ref="a"
                 v-for="(item1,i1) in v.childsCurGoods"
                 v-show="item1.remark"
                 :key="i1"
@@ -27,13 +27,13 @@
             </span>
             <!-- 价格 -->
             <div style="width:100%">
-              <p style="color:red">
+              <p style="color:red" ref="b">
                 ￥{{item.basicInfo.minPrice}}
                 <span v-show="item.basicInfo.minPrice>=1">.00</span>
               </p>
               <!-- 数量 -->
               <button @click="jian(item)">-</button>
-              {{item.basicInfo.commission+1}}
+              <span ref="c">{{item.basicInfo.commission+1}}</span>
               <button @click="jia(item)">+</button>
             </div>
           </div>
@@ -52,7 +52,7 @@
       <div>
         <p style="color:red">合计：￥{{zong()}}.00</p>
         <div>
-          <p v-show="done">下单</p>
+          <p v-show="done" @click="Order">下单</p>
           <p v-show="!done">删除</p>
         </div>
       </div>
@@ -66,6 +66,7 @@
 import Bottom from "./nav2/Bottom";
 import Canvas from "./nav3/canvas";
 import axios from "axios";
+import stor from "../model/storage.js";
 export default {
   data() {
     return {
@@ -73,6 +74,24 @@ export default {
     };
   },
   methods: {
+    //订单
+    Order() {
+      let list = stor.get("token");
+       list = JSON.parse(list);
+        let obj={
+          chi:this.$refs.a.value,
+          num:this.$refs.b.value,
+          pic:this.$refs.c.value
+        }
+      if (list) {
+        // 到这
+         this.$router.push({ path: "/Order" ,query:{token:list,goodsJsonStr:obj } }); 
+        // this.$store.state.token = list;
+      }else{
+        alert("请登录")
+      }
+    },
+    //删除
     del(i) {
       this.$store.state.gouwu.splice(i, 1);
     },
@@ -90,7 +109,7 @@ export default {
     zong() {
       let n = 0;
       this.$store.state.gouwu.forEach(v => {
-        n += (v.basicInfo.commission+1 )* v.basicInfo.minPrice;
+        n += (v.basicInfo.commission + 1) * v.basicInfo.minPrice;
       });
       return n;
     }
@@ -104,7 +123,11 @@ export default {
       return this.$store.state.gouwu;
     }
   },
-  created() {},
+  created() {
+    this.$store.state.gouwu.forEach(d => {
+      // console.log(d.properties)
+    });
+  },
   computed: {},
   watch: {
     $route() {

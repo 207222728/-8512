@@ -27,21 +27,25 @@
         <div @click="done=true">商品评价</div>
       </div>
       <!-- 商品介绍 -->
-      <div v-show="!done"  class="details_details1" v-html="list.content"></div>
+      <div v-show="!done" class="details_details1" v-html="list.content"></div>
       <!-- 商品评价 -->
       <div v-show="done" class="details_details1">
         <li class="ping" v-for="(v,i) in list1">
-         <img  :src="v.goods.pic"  /> 
-        <div> 
-          <p>匿名用户 <span>{{v.goods.goodReputationStr}}</span></p>
-          <p>{{v.goods.goodReputationRemark}}</p>
-          <p>{{v.goods.dateReputation}}  选择规格：{{v.goods.property}}</p>
-        </div>
+          <img :src="v.goods.pic" />
+          <div>
+            <p>
+              匿名用户
+              <span>{{v.goods.goodReputationStr}}</span>
+            </p>
+            <p>{{v.goods.goodReputationRemark}}</p>
+            <p>{{v.goods.dateReputation}} 选择规格：{{v.goods.property}}</p>
+          </div>
         </li>
       </div>
     </div>
-    <div class="details_bottom bottom_A" style="text-align:center">
+    <div class="details_bottom bottom_A" style="text-align:center" @click="Jump">
       <span>立即发起砍价，最低可砍到 1 元</span>
+      
     </div>
   </div>
 </template>
@@ -49,16 +53,27 @@
 <script>
 import HTTP from "../../services/product-service.js";
 const _http = new HTTP();
+import stor from "../../model/storage.js";
 import axios from "axios";
 export default {
   data() {
     return {
       list: [],
-       done:false,
-      list1:[]
+      done: false,
+      list1: []
     };
   },
-  methods: {},
+  methods: {
+    Jump() {
+      let list = stor.get("token");
+
+      if (list) {
+        this.$router.push({ path: "/Bargain" ,query:{id:this.$route.query.id}}); 
+      }else{
+        alert("请登录您的账号")
+      }
+    }
+  },
   components: {},
   computed: {},
   created() {
@@ -69,10 +84,10 @@ export default {
       .then(d => {
         this.list = d.data.data;
       });
-        _http.pingjia(n).then(d=>{
-        console.log(d.data.data)
-        this.list1=d.data.data
-      })
+    _http.pingjia(n).then(d => {
+      // console.log(d.data.data);
+      this.list1 = d.data.data;
+    });
   },
   watch: {
     $route() {
@@ -83,10 +98,10 @@ export default {
         .then(d => {
           this.list = d.data.data;
         });
-          _http.pingjia(n).then(d=>{
-        console.log(d.data.data)
-        this.list1=d.data.data
-      })
+      _http.pingjia(n).then(d => {
+        console.log(d.data.data);
+        this.list1 = d.data.data;
+      });
     }
   }
 };
@@ -119,31 +134,29 @@ export default {
   height: 100px !important;
   z-index: 99;
 }
-.ping{
+.ping {
   width: 100%;
   box-sizing: border-box;
   padding: 10px;
   display: flex;
 }
-.ping img{
+.ping img {
   width: 100px !important;
   height: 100px;
   box-sizing: border-box;
   padding: 10px;
   border-radius: 50%;
-  
 }
-.ping div span{
+.ping div span {
   padding: 5px;
   background: red;
   color: #fff;
 }
-.ping div p{
+.ping div p {
   box-sizing: border-box;
   padding: 5px 10px;
-  
 }
-.details_details1{
+.details_details1 {
   margin-bottom: 50px;
 }
 </style>

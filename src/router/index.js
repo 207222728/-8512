@@ -14,6 +14,9 @@ import Zhuanlan from '@/components/nav1/zhuanlan'
 import Zhuanti from '@/components/nav1/zhuanti'
 import Zhuc from '@/components/nav4/zhuc'
 import Zhuche from '@/components/nav4/zhuche'
+import Bargain from '@/components/nav1/Bargain'
+import region from '@/components/nav4/region'
+import Order from '@/components/nav3/Order'
 Vue.use(Router)
 
 export default new Router({
@@ -88,8 +91,19 @@ export default new Router({
     {
       path: '/zhuche',
       component: Zhuche
+    },
+    {
+      path: '/Bargain/',
+      component: Bargain
+    },
+    {
+      path: '/region',
+      component: region
+    },
+    {
+      path: '/Order/',
+      component: Order
     }
-
 
   ]
 })

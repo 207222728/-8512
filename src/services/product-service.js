@@ -98,6 +98,73 @@ class Product {
       }
     })
   }
+  //用户详情
+  yonghu(data) {
+    return _http.request({
+      type: 'post',
+      url: 'user/detail',
+      data: {
+        token: data
+      }
+    })
+  }
+  //砍价
+  Bargain(data) {
+    return _http.request({
+      type: 'post',
+      url: 'shop/goods/kanjia/join',
+      data: {
+        kjid: data.id,
+        token: data.n.token
+      }
+    })
+  }
+  //砍价
+  Bargain1(data) {
+    return _http.request({
+      type: 'post',
+      url: 'shop/goods/kanjia/my',
+      data: {
+        kjid: data.id,
+        token: data.n.token
+      }
+    })
+  }
+   //砍价
+   Bargain2(data) {
+    return _http.request({
+      type: 'post',
+      url: 'shop/goods/kanjia/info',
+      data: {
+        kjid: data.id,
+        joiner: data.n.uid
+      }
+    })
+  }
+  //帮别人砍价
+  Bargain3(data) {
+    return _http.request({
+      type: 'post',
+      url: 'shop/goods/kanjia/myHelp',
+      data: {
+        token: data.n.token,
+        kjid: data.id,
+        joinerUser: data.n.uid
+      }
+    })
+  }
+  //砍一刀
+  Bargain4(data) {
+    return _http.request({
+      type: 'post',
+      url: 'shop/goods/kanjia/help',
+      data: {
+        token: data.n.token,
+        kjid: data.id,
+        joinerUser: data.n.uid
+      }
+    })
+  }
 }
 
 export default Product
