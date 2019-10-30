@@ -91,7 +91,7 @@
         <p>购买数量</p>
         <div>
           <i class="el-icon-minus" @click="jian(list)"></i>
-          <p>{{list.basicInfo.commission+1}}</p>
+          <p ref="num">{{list.basicInfo.vetStatus}}</p>
           <i class="el-icon-plus" @click="jia(list)"></i>
         </div>
       </div>
@@ -103,6 +103,7 @@
 <script>
 import HTTP from "../../services/product-service.js";
 const _http = new HTTP();
+import stor from "../../model/storage.js";
 import axios from "axios";
 export default {
   data() {
@@ -112,50 +113,82 @@ export default {
       list1: [],
       done1: false,
       //规格存放
-      gui: []
+      gui: [],
+      //存放
+      cun: [],
+      cun1: []
     };
   },
   methods: {
     add() {
       this.done1 = false;
-      console.log()
-      this.$store.state.gouwu.push(this.list);
-       this.$store.state.gouwu.forEach((d,i)=>{
-         if (this.list.properties[0].id==d.properties[0].id) {
-           console.log(d)
-           this.list.basicInfo.commission++
-          //  this.$store.state.gouwu.splice(i,1)
-         }else{
-           this.$store.state.gouwu.splice(i,1)
-           this.list.basicInfo.commission++
-          //  this.$store.state.gouwu.push(this.list);
-         }
-       })
-
+      this.list.properties.forEach(d => {
+        d.childsCurGoods.forEach(item => {
+          if (item.remark == true) {
+            // console.log(d);
+            this.cun.push(d);
+            this.cun1.push(item);
+            let obj = {
+              name: this.list.basicInfo.name,
+              pic: this.list.basicInfo.pic,
+              gui: this.cun,
+              gui1: this.cun1,
+              num: this.list.basicInfo.vetStatus,
+              num1: this.list.basicInfo.minPrice,
+              id: this.list.basicInfo.id,
+              list:this.list.basicInfo,
+              done:false,
+              done1:false
+            };
+            // console.log(obj)
+            if (this.$store.state.gouwu.length < 1) {
+              this.$store.state.gouwu.push(obj);
+            } else {
+              this.$store.state.gouwu.forEach(d => {
+                console.log(d);
+                if (d.id == obj.id) {
+                  if (d.name == obj.name) {
+                    d.num++;
+                    stor.set("gouwu", JSON.stringify(this.$store.state.gouwu));
+                  }
+                } else {
+                  this.$store.state.gouwu.push(obj);
+                  stor.set("gouwu", JSON.stringify(this.$store.state.gouwu));
+                }
+              });
+            }
+            stor.set("gouwu", JSON.stringify(this.$store.state.gouwu));
+          } else if (item.remark == '') {
+            // alert('请选择尺码')
+            return  false
+          } 
+        });
+      });
     },
     //选中
     xuanzhong(v, i, index) {
-      this.list.properties[index].childsCurGoods.forEach(d => {
-        if (d.propertyId == v.propertyId) {
-          if (v.id==d.id) {
-            v.remark = true;
-            console.log(v)
+      this.pic = this.list.basicInfo.pic;
+      this.num =
+        // console.log(this.list.basicInfo.pic)
+        this.list.properties[index].childsCurGoods.forEach(d => {
+          if (d.propertyId == v.propertyId) {
+            if (v.id == d.id) {
+              d.remark = true;
+            } else {
+              d.remark = "";
+            }
+          } else {
           }
-        } else {
-           v.remark = false;
-          console.log(v);
-        }
-      });
-      console.log(this.list.properties[index].childsCurGoods)
+        });
     },
     // 数量+
     jia(v) {
-      v.basicInfo.commission++;
+      v.basicInfo.vetStatus++;
     },
     // 数量-
     jian(v) {
-      if (v.basicInfo.commission > 0) {
-        v.basicInfo.commission--;
+      if (v.basicInfo.vetStatus > 0) {
+        v.basicInfo.vetStatus--;
       }
     }
   },
@@ -253,4 +286,5 @@ export default {
   border-radius: 50%;
 }
 /* 选择 */
+
 </style>

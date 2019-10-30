@@ -17,6 +17,11 @@ import Zhuche from '@/components/nav4/zhuche'
 import Bargain from '@/components/nav1/Bargain'
 import region from '@/components/nav4/region'
 import Order from '@/components/nav3/Order'
+import address from '@/components/nav3/address'
+import address1 from '@/components/nav3/address1'
+import Submission from '@/components/nav3/Submission'
+import Orderdetails from '@/components/nav4/Orderdetails'
+import OrderdetailsX from '@/components/nav4/OrderdetailsX'
 Vue.use(Router)
 
 export default new Router({
@@ -103,7 +108,26 @@ export default new Router({
     {
       path: '/Order/',
       component: Order
+    },
+    {
+      path: '/address',
+      component: address
+    },
+    {
+      path: '/address1',
+      component: address1
+    },
+    {
+      path: '/Submission',
+      component: Submission
+    },
+    {
+      path: '/Orderdetails',
+      component: Orderdetails
+    },
+    {
+      path: '/OrderdetailsX/',
+      component: OrderdetailsX
     }
-
   ]
 })

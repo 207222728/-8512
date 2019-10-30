@@ -108,7 +108,7 @@ class Product {
       }
     })
   }
-  //砍价
+  //发起砍价
   Bargain(data) {
     return _http.request({
       type: 'post',
@@ -130,14 +130,14 @@ class Product {
       }
     })
   }
-   //砍价
-   Bargain2(data) {
+  //砍价详情
+  Bargain2(data) {
     return _http.request({
       type: 'post',
       url: 'shop/goods/kanjia/info',
       data: {
         kjid: data.id,
-        joiner: data.n.uid
+        joiner: data.n
       }
     })
   }
@@ -162,6 +162,59 @@ class Product {
         token: data.n.token,
         kjid: data.id,
         joinerUser: data.n.uid
+      }
+    })
+  }
+  //订单创建
+  Submission(data) {
+    return _http.request({
+      type: 'post',
+      // url:"order/statistics",
+      url: 'order/create',
+      data: {
+        token: data.token,
+        goodsJsonStr: data.goodsJsonStr
+      }
+    })
+  }
+  //查看订单
+  Submission1(data) {
+    return _http.request({
+      type: 'post',
+      url: 'order/list',
+      data: {
+        token: data.token
+      }
+    })
+  }
+  // 我的订单
+  Orderdetails(data) {
+    return _http.request({
+      type: "post",
+      url: 'order/list',
+      data: {
+        token: data.token
+      }
+    })
+  }
+  //订单详情
+  OrderdetailsX(data) {
+    return _http.request({
+      type: "post",
+      url: 'order/detail',
+      data: {
+        token: data.token,
+        id: data.id
+      }
+    })
+  }
+  //个人信息
+  geren(data) {
+    return _http.request({
+      type: "post",
+      url: 'user/detail',
+      data: {
+        token: data
       }
     })
   }

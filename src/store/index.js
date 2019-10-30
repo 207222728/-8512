@@ -52,7 +52,21 @@ const store = new Vuex.Store({
     // 登录的token值
     token: [],
     // 购物车的物品
-    gouwu: []
+    gouwu: [],
+    // 地址
+    address1: [],
+    //地址判断
+    done1:false,
+    //确认订单
+    Order:[],
+    //获取订单号
+    huo:[],
+    //个人信息
+    xin: [],
+    //判断登录状态
+    done2: false,
+    //订单号
+    tijiao:[]
   },
   // mutations
   mutations: {

@@ -2,7 +2,7 @@
 <template>
   <div class="Centent_nav1">
     <div class="div">
-      <router-link to="/">
+      <router-link to="/kanjia">
         <i class="el-icon-arrow-left"></i>
       </router-link>
     </div>
@@ -79,6 +79,7 @@ export default {
   created() {
     let n = this.$route.query.id;
     let a = this.$route.query.userid;
+    console.log(a)
     axios
       .get("https://api.it120.cc/small4/shop/goods/detail?id=" + n)
       .then(d => {

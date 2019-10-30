@@ -1,0 +1,94 @@
+.Bargain {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  color: #fff;
+}
+
+.Bargain .fan {
+  position: fixed;
+  top: 1%;
+  left: 1%;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  font-size: 30px;
+  text-align: center;
+  font-weight: 900;
+  border: 1px solid;
+  box-sizing: border-box;
+  padding: 0.1rem;
+}
+
+.Bargain .fan a {
+  width: 94%;
+  height: 94%;
+  display: block;
+  background: #fff;
+  border-radius: 50%;
+  border: 1px solid;
+}
+
+.Bargain .Bargain_div {
+  width: 100%;
+  height: 65%;
+  background: linear-gradient(to right top, #e7d9bf, #b7a47c);
+  box-sizing: border-box;
+  padding-top: 8%;
+}
+
+.Bargain .Bargain_div .Bargain_div_top {
+  width: 14%;
+  height: 1rem;
+  background: #fff;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 1rem;
+  font-size: 0.7rem;
+  border-radius: 50%;
+  color: #000;
+}
+
+.Bargain .Bargain_div > div {
+  text-align: center;
+}
+
+.Bargain .Bargain_div .Bargain_div_cen1 {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.1rem;
+  font-size: 0.2rem;
+}
+
+.Bargain .Bargain_div .Bargain_div_nav {
+  width: 88%;
+  height: 1.8rem;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 1px #a7a7a7;
+  background: #f6edde;
+  display: flex;
+  font-size: 0.2rem;
+  box-sizing: border-box;
+}
+
+.Bargain .Bargain_div .Bargain_div_nav img {
+  width: 30%;
+  box-sizing: border-box;
+  padding: 0.1rem;
+}
+
+.Bargain .Bargain_div .Bargain_div_nav > div {
+  text-align: left;
+  box-sizing: border-box;
+  padding: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #000;
+}
+
+.Bargain .Bargain_div .Bargain_div_nav > div s {
+  box-sizing: border-box;
+  padding: 0 0.7rem;
+}

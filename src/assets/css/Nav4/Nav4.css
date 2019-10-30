@@ -19,12 +19,13 @@
 }
 
 .Nav4_top > .div2 {
-  width: 32%;
+  width: 80%;
   box-sizing: border-box;
   padding: 10px 20px;
 }
 
 .Nav4_top > .div2 > .p {
+  width: 40%;
   box-sizing: border-box;
   padding: 5px 5px;
   margin: 10px 0;

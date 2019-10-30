@@ -13,7 +13,7 @@
         </span>
       </div>
       <div class="yanz">
-        <input type="text" ref="mima" placeholder="请输入密码" />
+        <input type="password" ref="mima" placeholder="请输入密码" />
         <span>
           <i class="el-icon-view"></i>
         </span>

@@ -4,21 +4,20 @@
     <div class="zhuc1">
       <h1>新用户注册</h1>
       <p style="margin-bottom: 30px">很高兴您将成为商城的会员（注册只需一步）</p>
-      <div class="yanz">
-        <input type="text" v-model="Personal.Telephone" placeholder="手机号" />
+      <div class="yanz" ref="shouji">
+        <input type="text" v-model="Personal.Telephone" @blur="shi" placeholder="手机号" />
         <span>
           <i class="el-icon-mobile-phone"></i>
         </span>
       </div>
-      <div class="yanz">
-        <!-- <el-input placeholder="请输入密码" v-model="input" show-password></el-input> -->
-        <input type="password" ref="mima" v-model="Personal.password" placeholder="密码" />
+      <div class="yanz" ref="mima">
+        <input type="password" v-model="Personal.password" @blur="shi1" placeholder="密码" />
         <span @click="qie">
           <i class="el-icon-view"></i>
         </span>
       </div>
-      <div class="yanz">
-        <input type="password" ref="mima1" v-model="Personal.password1" placeholder="确认密码" />
+      <div class="yanz" ref="mima1">
+        <input type="password" v-model="Personal.password1" @blur="shi2" placeholder="确认密码" />
         <span @click="qie1">
           <i class="el-icon-view"></i>
         </span>
@@ -74,6 +73,34 @@ export default {
     };
   },
   methods: {
+    //手机号验证
+    shi() {
+      let Telephone = /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/;
+      if (Telephone.test(this.Personal.Telephone)) {
+        this.$refs.shouji.style.border = "";
+      } else {
+        this.$refs.shouji.style.border = "1px solid red";
+      }
+      console.log("11111");
+    },
+    //密码验证
+    shi1() {
+      let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+      if (reg.test(this.Personal.password)) {
+        this.$refs.mima.style.border = "";
+      } else {
+        this.$refs.mima.style.border = "1px solid red";
+      }
+    },
+    //确认密码
+    shi2() {
+      let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+      if (reg.test(this.Personal.password1)) {
+        this.$refs.mima1.style.border = "";
+      } else {
+        this.$refs.mima1.style.border = "1px solid red";
+      }
+    },
     //点击注册
     zhuc() {
       let obj = {
@@ -88,7 +115,7 @@ export default {
           _http.shouji(obj).then(res => {
             console.log(res);
             if (res.data.code == 0 || 10000) {
-               this.$router.push({ path: "/zhuc" });
+              this.$router.push({ path: "/zhuc" });
             }
           });
         }
@@ -123,6 +150,9 @@ export default {
         };
         // console.log(obj)
         _http.zhuche(obj).then(d => {
+          if (d.data.code != 0) {
+            alert('信息错误,请重试')
+          }
           console.log(d);
         });
       } else {

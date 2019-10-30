@@ -12,7 +12,7 @@
     </div>
     <ul class="Nav1_kanjianav">
       <li class="li1" v-for="(v,i) in this.$store.state.list3" :key="i">
-        <router-link :to="{path:'/user2',query:{id:v.id}}">
+        <router-link :to="{path:'/user2',query:{id:v.id,index:i}}">
           <div class="div1">
             <img class="img" :src="v.pic" alt />
           </div>
@@ -44,12 +44,16 @@
 import axios from "axios";
 export default {
   data() {
-    return {};
+    return {
+      list:[]
+    };
   },
   methods: {},
   components: {},
   computed: {},
-  created() {}
+  created() {
+   
+  }
 };
 </script>
 <style  scoped>

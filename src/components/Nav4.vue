@@ -7,19 +7,24 @@
       </div>
       <div class="div2">
         <p>
-          <router-link to="/zhuc" v-show="this.$store.state.token.length == 0">点击登录</router-link>
+          <router-link to="/zhuc" v-show="!this.$store.state.done2" >点击登录</router-link>
         </p>
-        <p v-show="this.$store.state.token.length >0">
-          123
-          <span @click="tui">退出</span>
+        <p v-show="this.$store.state.done2">
+          {{this.$store.state.done2?(this.$store.state.xin.base.nick):""}}
+          <span @click="tui">退出登录</span>
         </p>
-        <p class="p">积分：0</p>
+        <p class="p">积分：
+             {{this.$store.state.done2?(this.$store.state.xin.base.source):"999"}}
+          </p>
       </div>
     </div>
-    <div class="tongzhi">123</div>
+    <div class="tongzhi" style="color:red;font-size:10px;">	新上线更稳定的付费快递查询接口<i style="color:#000;font-size:16px;" class="el-icon-s-comment"></i>
+</div>
     <div class="dingdan">
       <span>
-        <i class="el-icon-s-order"></i>我的订单
+        <router-link to="/Orderdetails">
+          <i class="el-icon-s-order"></i>我的订单
+        </router-link>
       </span>
       <span>
         <i class="el-icon-arrow-right"></i>
@@ -85,7 +90,8 @@ import axios from "axios";
 export default {
   data() {
     return {
-      list: []
+      list: [],
+      xin: []
     };
   },
   methods: {
@@ -95,11 +101,11 @@ export default {
     },
 
     address() {
-       let list = stor.get("token");
+      let list = stor.get("token");
       if (list) {
-        this.$router.push({ path: "/region" }); 
-      }else{
-        alert("请登录您的账号")
+        this.$router.push({ path: "/address" });
+      } else {
+        alert("请登录您的账号");
       }
     }
   },
@@ -109,21 +115,30 @@ export default {
   computed: {},
   created() {
     let list = stor.get("token");
+    list = JSON.parse(list);
     if (list) {
       this.$store.state.token = list;
+      this.$store.state.done2 = true
+    }else{
+       this.$store.state.done2 = false
     }
+    // console.log(this.$store.state.done2)
   },
   mounted() {
     let list = stor.get("token");
+    list = JSON.parse(list);
     if (list) {
-      _http.yonghu(list).then(d => {
-        console.log(d);
-        // this.list1 = d.data.data;
+      // 个人信息
+      _http.geren(list.token).then(d => {
+         this.$store.state.xin = d.data.data;
+        //  console.log(this.$store.state.xin)
       });
       this.$store.state.token = list;
+       this.$store.state.done2 = true
+    }else{
+      this.$store.state.done2 = false
     }
-
-    //  console.log( this.$store.state.token.length);
+    // console.log(this.$store.state.xin)
   },
   watch: {
     $rouer() {
