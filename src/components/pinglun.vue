@@ -1,6 +1,13 @@
 <!--  -->
 <template>
   <div class="inde">
+    <div class="ding">
+      <p>
+        <router-link to="/nav4">返回</router-link>
+      </p>
+      <p>我的订单</p>
+      <p></p>
+    </div>
     <li style="display:flex;width:100%;height:100px;" v-for="(v,i) in list1" :key="i">
         <img :src="v.pic" width="100px">
         <div>
@@ -9,8 +16,8 @@
             <p>{{list2.orderInfo.statusStr}}  <input type="text"></p>
         </div>
     </li>
-    <input type="text" >
-    <button @click="pingjia" ref="pingjia">评价</button>
+    <input type="text" ref="pingjia">
+    <button @click="pingjia" >评价</button>
   </div>
 </template>
 
@@ -38,13 +45,13 @@ export default {
       console.log(this.list1[0].id);
       let obj = {
         token: list.token,
-        postJsonString: JSON.stringify({
+        postJsonString:JSON.stringify( {
           token: list.token,
-          orderId: this.list[0].id,
+          orderId: this.list1[0].orderId,
           reputations: [
             {
               id: this.list1[0].id,
-              reputation: 1,
+              reputation: 0,
               remark: this.$refs.pingjia.value
             }
           ]
@@ -68,10 +75,13 @@ export default {
     let list = stor.get("huo");
     let obj = {
       token: list1.token,
+      page:2,
       goodsJsonStr: JSON.stringify(list)
     };
     _http.Submission1(obj).then(d => {
+      // console.log(d)
       d.data.data.orderList.forEach(v => {
+        // console.log(v)
         if (v.status == 3) {
           this.list.push(v);
           let obj1 = {
@@ -82,7 +92,8 @@ export default {
           _http.ddxq(obj1).then(v => {
             this.list1 = v.data.data.goods;
             this.list2=v.data.data
-            console.log(this.list2);
+            // console.log(this.list2);
+            // console.log(v)
           });
         }
       });
@@ -91,4 +102,5 @@ export default {
 };
 </script>
 <style  scoped>
+@import url("../assets/css/Nav3/Nav3.css");
 </style>

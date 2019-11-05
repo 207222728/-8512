@@ -14,7 +14,7 @@ import HTTP from '../utils/http'
 const _http = new HTTP()
 class Product {
   // list方法
-  list() {
+  list () {
     return _http.request({
       url: 'banner/list'
     })
@@ -183,7 +183,8 @@ class Product {
       type: 'post',
       url: 'order/list',
       data: {
-        token: data.token
+        token: data.token,
+        page: data.page
       }
     })
   }
@@ -267,11 +268,12 @@ class Product {
   }
   //评价商品
   pinglun(data) {
+    console.log(data)
     return _http.request({
       type: 'post',
       url: 'order/reputation',
       data: {
-        postJsonString: data.reputations,
+        postJsonString: data.postJsonString,
         token: data.token
       }
     })
