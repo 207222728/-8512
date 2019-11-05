@@ -168,7 +168,7 @@ export default {
     //选中
     xuanzhong(v, i, index) {
       this.pic = this.list.basicInfo.pic;
-      this.num =
+      // this.num =
         // console.log(this.list.basicInfo.pic)
         this.list.properties[index].childsCurGoods.forEach(d => {
           if (d.propertyId == v.propertyId) {
@@ -206,7 +206,7 @@ export default {
       });
     //评价
     _http.pingjia(n).then(d => {
-      // console.log(d.data.data)
+      console.log(d.data.data)
       this.list1 = d.data.data;
     });
   },
@@ -221,6 +221,7 @@ export default {
       axios
         .get("https://api.it120.cc/small4/shop/goods/detail?id=" + n)
         .then(d => {
+          console.log(d)
           this.list = d.data.data;
         });
       _http.pingjia(n).then(d => {
@@ -274,11 +275,17 @@ export default {
 .details_details1 {
   margin-bottom: 50px;
 }
+.details_bottom{
+  z-index: 998;
+}
+.guige{
+  z-index: 999;
+}
 .num2 {
   position: absolute;
   color: #fff;
-  width: 25px;
-  height: 30px;
+  width: 25px !important;
+  height: 30px !important;
   font-size: 20px;
   background: red;
   text-align: center;
@@ -286,5 +293,19 @@ export default {
   border-radius: 50%;
 }
 /* 选择 */
-
+.m-attrList{
+  width: 100%;
+}
+.m-attrList li{
+  width: 100%;
+}
+.m-attrList li p{
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  padding: 0.2rem;
+}
+.m-attrList li p span{
+  width: 80%;
+}
 </style>

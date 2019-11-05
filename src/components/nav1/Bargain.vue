@@ -24,18 +24,19 @@
       </div>
       <div style="height:1rem;">
         <p>
-          低价￥{{list.kanjiaInfo.curPrice -num}}
-          原价￥{{num}}
+          当前价格{{(list.kanjiaInfo.curPrice -num).toFixed(2)}}元,
+          已砍{{num}}元;
         </p>
       </div>
-      <div class="">
-        <button @click.once="kan">砍一刀</button>
+      <div class="kandao">
+        <button style="width:50%;background: #b0a48c;color:#fff;" @click.once="kan">{{done==false?'砍一刀':'已当前价格购买'}}</button>
+        <button style="border: 1px solid #b19e75;color: #b3a079;background:rgba(256,256,256,0)">邀请好友砍价</button>
       </div>
     </div>
-    <div class="dd">
+    <div class="dd" v-show="done">
         <div class="dd1">
-          <p>{{list2.uid}}</p>
-          <p>{{list2.dateAdd}}</p>
+          <p> {{list2==""?'':"用户名："}}{{list2.uid}}</p>
+          <p> {{list2==""?'':"砍价时间："}}{{list2.dateAdd}}</p>
         </div>
         <div class="dd2">
          {{list2==""?'':"砍了"}}{{list2.cutPrice}}
@@ -43,7 +44,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import HTTP from "../../services/product-service.js";
 const _http = new HTTP();
@@ -56,11 +56,13 @@ export default {
       list1: [],
       num: 0,
       id1: "",
-      list2:[]
+      list2:[],
+      done:false
     };
   },
   methods: {
     kan() {
+      this.done=true
       let n = stor.get("token");
       n = JSON.parse(n);
       let id = this.$route.query.id;
@@ -101,10 +103,10 @@ export default {
             this.list = d.data.data;
             // console.log(this.list);
           });
-          //发起砍价
-          _http.Bargain(obj).then(d => {
-            // console.log(d);
-          });
+          // //发起砍价
+          // _http.Bargain(obj).then(d => {
+          //   // console.log(d);
+          // });
 
           this.$store.state.list3.forEach(v1 => {
             if (v1.id == id) {
@@ -134,6 +136,11 @@ export default {
     // _http.Bargain4(obj).then(d => {
     //   //   console.log(d);
     // });
+  },
+  watch: {
+    $route(){
+       this.num
+    }
   }
 };
 </script>
@@ -150,5 +157,22 @@ export default {
 }
 .dd2{
   width: 30%;
+}
+.kandao{
+  width: 80%;
+  box-sizing: border-box;
+  padding: 0.2rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+.kandao button{
+  width: 35%;
+  box-sizing: border-box;
+  padding: 0.1rem;
+  line-height: 0.7rem;
+  border: none;
+  outline: none;
+  border-radius: 10px;
 }
 </style>

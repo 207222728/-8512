@@ -53,7 +53,7 @@
         <p style="color:red">合计：￥{{zong()}}.00</p>
         <div>
           <p v-show="!done" @click="Order">下单</p>
-          <p v-show="done" @click="del(index)">删除</p>
+          <p v-show="done" @click="del()">删除</p>
         </div>
       </div>
     </div>
@@ -70,13 +70,15 @@ export default {
   data() {
     return {
       done: false,
-      do: false
+      do: false,
+      list: []
     };
   },
   methods: {
     //选中商品
     xuan(i) {
-      this.$store.state.gouwu[i].done=!this.$store.state.gouwu[i].done
+      this.$store.state.gouwu[i].done = !this.$store.state.gouwu[i].done;
+        stor.set("gouwu", JSON.stringify(this.$store.state.gouwu));
     },
     //全选
     quan(e) {
@@ -87,7 +89,7 @@ export default {
           d.done = false;
         }
       });
-      // console.log(e.target.checked);
+        stor.set("gouwu", JSON.stringify(this.$store.state.gouwu));
     },
     //订单
     Order() {
@@ -98,26 +100,37 @@ export default {
         num: this.$refs.b.value,
         pic: this.$refs.c.value
       };
+
       if (list) {
         // 到这
-        this.$router.push({
-          path: "/Order",
-          query: { token: list, goodsJsonStr: obj }
+        this.$store.state.gouwu.forEach(d => {
+          if (d.done == true) {
+            this.$router.push({
+              path: "/Order",
+              query: { token: list, goodsJsonStr: obj }
+            });
+          }else{
+            alert('请选择商品')
+            return
+          }
         });
-        // this.$store.state.token = list;
       } else {
         alert("请登录");
       }
     },
     //删除
     del() {
+      this.list = [];
       this.$store.state.gouwu.forEach((d, i) => {
         if (d.done == true) {
-      
-          this.$store.state.gouwu.splice(d,1)
+          this.$store.state.gouwu = this.list;
+          stor.set("gouwu", JSON.stringify(this.$store.state.gouwu));
+        } else {
+          this.list.push(d);
+          this.$store.state.gouwu = this.list;
+          stor.set("gouwu", JSON.stringify(this.$store.state.gouwu));
         }
       });
-      stor.set("gouwu", JSON.stringify(this.$store.state.gouwu));
     },
     // 数量+
     jia(v) {

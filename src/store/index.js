@@ -66,7 +66,8 @@ const store = new Vuex.Store({
     //判断登录状态
     done2: false,
     //订单号
-    tijiao:[]
+    tijiao:[],
+    logo:false
   },
   // mutations
   mutations: {

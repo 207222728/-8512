@@ -10,18 +10,18 @@
     </div>
     <!-- 地址 -->
     <div class="dizhi">
-      <p v-show="!list.done">
+      <p v-show="!list1.isDefault">
         <router-link to="/address">添加地址</router-link>
       </p>
-      <li class="l2" v-show="list.done">
+      <li class="l2" v-show="!list1.length">
         <div></div>
         <div style="width:80%">
           <router-link to="/address">
             <p>
-              {{list.xing}}
-              <span>{{list.lian}}</span>
+              {{list1.linkMan}}
+              <span>{{list1.mobile}}</span>
             </p>
-            <div>{{list.di}}</div>
+            <div>{{list1.address}}</div>
           </router-link>
         </div>
         <div></div>
@@ -84,9 +84,7 @@
           <span v-show="zong()>=1">.00</span>
         </p>
         <div>
-          <p @click.once="tijiao">
-           提交订单
-          </p>
+          <p @click.once="tijiao">提交订单</p>
         </div>
       </div>
     </div>
@@ -101,7 +99,9 @@ import axios from "axios";
 export default {
   data() {
     return {
-      list: {}
+      list: {},
+      //地址
+      list1: {}
     };
   },
   methods: {
@@ -120,21 +120,24 @@ export default {
       let list1 = stor.get("token");
       list1 = JSON.parse(list1);
       let list = stor.get("huo");
+      console.log(list)
       let obj = {
         token: list1.token,
         goodsJsonStr: JSON.stringify(list)
       };
       //订单号
       _http.Submission(obj).then(d => {
+        console.log(d);
         this.$store.state.tijiao = d.data.data.orderNumber;
         stor.set("tijiao", JSON.stringify(this.$store.state.tijiao));
       });
       //订单详情
       _http.Submission1(obj).then(d => {
-        // console.log(d.data.data.orderList)
-        // this.list = d.data.data;
+        console.log(d.data.data.orderList)
+
       });
-       this.$router.push({ path: "/Submission" });
+      this.$router.push({ path: "/Submission" });
+      // location.href='/Submission'
     }
   },
   components: {},
@@ -145,36 +148,42 @@ export default {
     if (list) {
       this.$store.state.gouwu = list;
     }
-    let list1 = stor.get("dizhi");
-    list1 = JSON.parse(list1);
-    if (list1) {
-      list1.forEach(d => {
-        if (d.done == true) {
-          this.list = d;
-        }
-      });
-      this.$store.state.address1 = list1;
-    }
+    //规格
     this.$store.state.gouwu.forEach(d => {
-      // console.log(d)
+      console.log(d)
+      let n ="";
+      if (d.gui1.length == 1) {
+        n = `${d.gui1[0].propertyId}:${d.gui1[0].id}`;
+      } else {
+        n = `${d.gui1[0].propertyId}:${d.gui1[0].id},${d.gui1[1].propertyId}:${d.gui1[1].id}`;
+      }
+      console.log(n);
+
       let cun = {
         goodsId: d.list.id,
         number: d.num,
-        propertyChildIds: `${d.gui1[0].propertyId}:${d.gui1[0].id}`,
+        propertyChildIds: n,
         logisticsType: 0
       };
+      console.log(cun)
       this.$store.state.huo.push(cun);
       stor.set("huo", this.$store.state.huo);
     });
+    //默认地址
+    let list1 = JSON.parse(stor.get("moren"));
+    if (list1) {
+      this.list1 = list1;
+    } else {
+      this.list1 = {};
+    }
+    // console.log(this.list1);
   },
-  updated() {},
   watch: {
     $route() {
       this.$store.state.address1;
       this.list;
       this.$store.state.address1.forEach(d => {
         if ((d.done = true)) {
-          // console.log(d);
           this.list = d;
         } else {
           this.list = "";
@@ -185,6 +194,7 @@ export default {
       if (list1) {
         this.$store.state.address1 = list1;
       }
+      this.$store.state.tijiao
     }
   }
 };

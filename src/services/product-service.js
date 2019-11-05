@@ -218,6 +218,74 @@ class Product {
       }
     })
   }
+  //添加地址
+  dizhi(data) {
+    return _http.request({
+      type: "post",
+      url: 'user/shipping-address/add',
+      data: {
+        address: data.address,
+        cityId: data.cityId,
+        code: data.code,
+        linkMan: data.linkMan,
+        mobile: data.mobile,
+        provinceId: data.provinceId,
+        token: data.token
+      }
+    })
+  }
+  //地址列表
+  dzliebiao(data) {
+    return _http.request({
+      type: "post",
+      url: 'user/shipping-address/list',
+      data: {
+        token: data
+      }
+    })
+  }
+  //删除收货地址
+  dzremove(data) {
+    return _http.request({
+      type: "post",
+      url: 'user/shipping-address/delete',
+      data: {
+        token: data.token,
+        id: data.id
+      }
+    })
+  }
+  //默认收货地址
+  default(data) {
+    return _http.request({
+      type: "post",
+      url: 'user/shipping-address/default',
+      data: {
+        token: data
+      }
+    })
+  }
+  //评价商品
+  pinglun(data) {
+    return _http.request({
+      type: 'post',
+      url: 'order/reputation',
+      data: {
+        postJsonString: data.reputations,
+        token: data.token
+      }
+    })
+  }
+  ddxq(data) {
+    return _http.request({
+      type: 'post',
+      url: 'order/detail',
+      data: {
+        token: data.token,
+        id: data.id
+      }
+    })
+  }
 }
 
 export default Product

@@ -121,6 +121,7 @@ export default {
   line-height: 50px;
   display: block;
   text-align: center;
+  z-index: 999;
 }
 .details_details1 >>> p {
   width: 100% !important;
@@ -159,5 +160,20 @@ export default {
 }
 .details_details1 {
   margin-bottom: 50px;
+}
+.m-attrList{
+  width: 100%;
+}
+.m-attrList li{
+  width: 100%;
+}
+.m-attrList li p{
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  padding: 0.2rem;
+}
+.m-attrList li p span{
+  width: 80%;
 }
 </style>

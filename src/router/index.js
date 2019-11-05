@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Nav1 from '@/views/products/Nav1'
 import Nav2 from '@/components/Nav2'
 import Nav3 from '@/components/Nav3'
@@ -22,6 +23,13 @@ import address1 from '@/components/nav3/address1'
 import Submission from '@/components/nav3/Submission'
 import Orderdetails from '@/components/nav4/Orderdetails'
 import OrderdetailsX from '@/components/nav4/OrderdetailsX'
+import pinglun from '@/components/pinglun'
+
+// import Options from '../index'
+// import Options from '../../index'
+// import vueg from 'vueg'
+// import 'vueg/css/transition-min.css'
+// Vue.use(vueg, Router, Options)
 Vue.use(Router)
 
 export default new Router({
@@ -128,6 +136,10 @@ export default new Router({
     {
       path: '/OrderdetailsX/',
       component: OrderdetailsX
+    },
+    {
+      path: '/pinglun',
+      component: pinglun
     }
   ]
 })

@@ -1,6 +1,10 @@
 <!--  -->
 <template>
-  <div class="Nav">
+  <div class="Nav" ref="shoutop" @scroll="to">
+    <div class="scro" v-show="done">
+      <img class="img5" src="../../../static/1.png" />
+    </div>
+
     <div class="a">
       <el-carousel :interval="5000" arrow="always">
         <el-carousel-item v-for="(item,index) in list" :key="index">
@@ -106,12 +110,12 @@
         </router-link>
       </li>
     </ul>
-     <Bottom></Bottom>
+    <Bottom></Bottom>
   </div>
 </template>
 
 <script>
-import Bottom from '../../components/nav2/Bottom'
+import Bottom from "../../components/nav2/Bottom";
 import Product from "../../services/product-service";
 const _product = new Product();
 import axios from "axios";
@@ -124,21 +128,33 @@ export default {
       //人气推荐列表
       list2: [],
       //精选
-      list3: []
+      list3: [],
+      done: false,
+      srot: ""
     };
   },
-  methods: {},
-  components: {Bottom},
+  methods: {
+    to() {
+      this.srot = this.$refs.shoutop.scrollTop;
+      // document.documentElement.scrollTop||document.body.scrollTop
+      // console.log(document)
+      if (this.srot > 400) {
+        this.done = true;
+      } else {
+        this.done = false;
+      }
+      // console.log(this.srot);
+    }
+  },
+  components: { Bottom },
   computed: {},
   created() {
     _product.list().then(d => {
-      // console.log(d);
-      // console.log(d.data.data);
       this.list = d.data.data;
     });
     axios.get("https://api.it120.cc/small4/shop/goods/kanjia/list").then(d => {
-      // console.log(d.data.data.goodsMap)
       let a = d.data.data.goodsMap;
+      console.log(d.data.data)
       for (let i in a) {
         this.list1.push(a[i]);
         this.list2.push(a[i]);
@@ -149,18 +165,34 @@ export default {
       this.list1.splice(3);
       this.list2 = this.list2.splice(2, 4);
       this.$store.state.list2 = this.$store.state.list2.splice(0, 4);
-      // console.log(this.list2);
     });
     axios.get("https://api.it120.cc/small4/cms/news/list").then(d => {
-      // console.log(d.data.data);
       this.list3 = d.data.data;
       this.$store.state.list4 = d.data.data;
     });
+  },
+
+  mounted() {
+    window.addEventListener("scroll", this.to);
   }
 };
 </script>
 <style  scoped>
 @import url("../../assets/css/Nav1/Nav1.css");
+.scro {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  box-sizing: border-box;
+  /* padding: 0.2rem; */
+  z-index: 999;
+  background: #fff;
+}
+.img5 {
+  width: 40px;
+  margin: 0 auto;
+  display: block;
+}
 .el-carousel__item h3 {
   color: #475669;
   font-size: 18px;

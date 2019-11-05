@@ -45,7 +45,8 @@
       </li>
       <li>
         <i class="el-icon-s-comment"></i>
-        <p>待评价</p>
+        <p><router-link to="/pinglun">待评价
+          </router-link></p>
       </li>
     </ul>
     <div class="bottom1">

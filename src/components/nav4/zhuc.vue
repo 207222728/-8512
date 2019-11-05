@@ -43,7 +43,6 @@ export default {
   },
   methods: {
     fo() {
-      
       let n = this.$refs.zhanghao.value;
       let d = this.$refs.mima.value;
       let obj={mobile:n,pwd:d}

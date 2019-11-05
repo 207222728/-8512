@@ -10,15 +10,15 @@
     </div>
     <div class="contact">
       <div class="contact_div">
-        <p>联系方式</p>
+        <p>联系人</p>
         <div>
-          <input type="text" ref="xing" placeholder="姓名" />
+          <input type="text" v-model="ming" placeholder="姓名" />
         </div>
       </div>
-      <div class="contact_div"> 
+      <div class="contact_div">
         <p>手机号码</p>
         <div>
-          <input type="text" ref="lian" placeholder="11位手机号码" />
+          <input type="text" v-model="hao" placeholder="11位手机号码" />
         </div>
       </div>
       <div class="contact_div">
@@ -46,13 +46,13 @@
       <div class="contact_div">
         <p>详细地址</p>
         <div>
-          <input type="text" ref="di" placeholder="街道门牌信息" />
+          <input type="text" v-model="dizhi" placeholder="街道门牌信息" />
         </div>
       </div>
       <div class="contact_div">
         <p>邮政编码</p>
         <div>
-          <input type="text" placeholder="邮政编码" />
+          <input type="text" v-model="bian" placeholder="邮政编码" />
         </div>
       </div>
     </div>
@@ -63,6 +63,8 @@
 </template>
 
 <script>
+import HTTP from "../../services/product-service.js";
+const _http = new HTTP();
 import stor from "../../model/storage.js";
 import axios from "axios";
 export default {
@@ -73,28 +75,46 @@ export default {
       list1: [],
       name1: "",
       list2: [],
-      name2: ""
+      name2: "",
+       //省编号
+      sheng: "",
+      //市编号
+      shi: "",
+      //姓名
+      ming: "",
+      //手机号
+      hao: "",
+      //详细地址
+      dizhi: "",
+      //编号
+      bian: ""
     };
   },
   methods: {
       address1(){
-          let obj={
-              xing:this.$refs.xing.value,
-              lian:this.$refs.lian.value,
-              di:this.$refs.di.value,
-              done:this.$store.state.done1
-          }
-          if (this.$refs.xing.value == ''||this.$refs.lian.value==''||this.$refs.di.value=='') {
-              alert('内容不能为空')
-          }else{
-                this.$store.state.address1.push(obj)
-                 stor.set('dizhi',JSON.stringify(this.$store.state.address1));
-                 this.$router.push({ path: "/address" });
-          }
+         this.$store.state.token = JSON.parse(stor.get("token"));
+      let obj = {
+        address: this.dizhi,
+        cityId: this.shi,
+        code: this.bian,
+        linkMan: this.ming,
+        mobile: this.hao,
+        provinceId: this.sheng,
+        token: this.$store.state.token.token
+      };
+      console.log(obj);
+      //添加地址
+      _http.dizhi(obj).then(d => {
+        console.log(d);
+        if (d.data.code == 0) {
+          this.$router.push({ path: "/address" });
+        }
+      });
       },
     add(v) {
       this.list.forEach(d => {
         if (d.name == v) {
+           this.sheng = d.id;
           axios
             .post("https://api.it120.cc/common/region/child?pid=" + d.id)
             .then(v => {
@@ -107,6 +127,7 @@ export default {
     add1(v) {
       this.list1.forEach(d => {
         if (d.name == v) {
+            this.shi = d.id;
           axios
             .post("https://api.it120.cc/common/region/child?pid=" + d.id)
             .then(v => {
@@ -131,10 +152,10 @@ export default {
 };
 </script>
 <style  scoped>
-.sheng{
-    width: 100%;
-    display: flex;
-    box-sizing: border-box;
+.sheng {
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
 }
 .ding {
   width: 100%;
@@ -155,7 +176,7 @@ export default {
   width: 20%;
   box-sizing: border-box;
 }
-.contact_div >div {
+.contact_div > div {
   width: 80%;
   box-sizing: border-box;
   text-align: center;
